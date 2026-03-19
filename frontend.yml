@@ -2,7 +2,7 @@
   hosts: all
   become: yes
   tasks:
-    - name: Install a modularity appstream with defined stream
+    - name: Install nginx
       ansible.builtin.dnf:
         name: '@nginx:1.26'
         state: present
