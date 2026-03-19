@@ -1,0 +1,8 @@
+- name: Frontend setup
+  hosts: all
+  tasks:
+    - name: Install a modularity appstream with defined stream
+      ansible.builtin.dnf:
+        name: '@nginx:1.26'
+        state: present
+
