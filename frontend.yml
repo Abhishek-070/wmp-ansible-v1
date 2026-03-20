@@ -17,15 +17,15 @@
         src: nginx.conf
         dest: /etc/nginx/nginx.conf
 
-    - name: Remove Nginx directory
+    - name: Remove Nginx default
       ansible.builtin.file:
-        path: /usr/share/nginx/html/
+        path: /usr/share/nginx/html
         state: absent
 
     - name: Download and extract frontend
       ansible.builtin.unarchive:
         src: https://raw.githubusercontent.com/raghudevopsb88/wealth-project/main/artifacts/frontend.tar.gz
-        dest: /tmp/
+        dest: /usr/share/nginx
         remote_src: yes
 
     - name: Build frontend
