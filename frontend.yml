@@ -4,7 +4,6 @@
   tasks:
     - name: Install Nodejs repo files
       ansible.builtin.shell: curl -fsSL https://rpm.nodesource.com/setup_22.x | bash
-      become: yes
 
     - name: Install nginx & nodejs
       ansible.builtin.dnf:
