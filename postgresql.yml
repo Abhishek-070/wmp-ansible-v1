@@ -33,13 +33,6 @@
         content: pg_hba.conf
         dest: /var/lib/pgsql/16/data/pg_hba.conf
 
-
-    - name: Start PostgreSQL service
-      ansible.builtin.systemd_service:
-        name: postgresql-16
-        state: restarted
-        enabled: yes
-
     - name: Copy schema file
       ansible.builtin.copy:
         content: setup.sql
@@ -47,4 +40,10 @@
 
     - name: Load schema
       ansible.builtin.shell: sudo -u postgres /usr/pgsql-16/bin/psql < /tmp/setup.sql
+
+    - name: Start PostgreSQL service
+      ansible.builtin.systemd_service:
+        name: postgresql-16
+        state: restarted
+        enabled: yes
 
