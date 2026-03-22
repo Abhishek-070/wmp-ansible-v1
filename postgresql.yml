@@ -21,16 +21,29 @@
     - name: Initialise database
       ansible.builtin.shell: /usr/pgsql-16/bin/postgresql-16-setup initdb
 
-    - name: Start PostgreSQL service
-      ansible.builtin.systemd_service:
-        name: postgresql-16
-        state: started
-        enabled: yes
-
     - name: Upgrade postgres listen address
       ansible.builtin.replace:
         path: /var/lib/pgsql/16/data/postgresql.conf
         regexp: "#listen_addresses= 'localhost'"
         replace: "listen_addresses='*'"
 
+    - name: Copy pg_hba file
+      ansible.builtin.copy:
+        content: pg_hba.conf
+        dest: /var/lib/pgsql/16/data/pg_hba.conf
+
+
+    - name: Start PostgreSQL service
+      ansible.builtin.systemd_service:
+        name: postgresql-16
+        state: restarted
+        enabled: yes
+
+    - name: Copy schema file
+      ansible.builtin.copy:
+        content: setup.sql
+        dest: /tmp/setup.sql
+
+    - name: Load schema
+      ansible.builtin.shell: sudo -u postgres /usr/pgsql-16/bin/psql < schema.sql
 
