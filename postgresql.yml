@@ -30,7 +30,7 @@
 
     - name: Copy pg_hba file
       ansible.builtin.copy:
-        content: pg_hba.conf
+        src: pg_hba.conf
         dest: /var/lib/pgsql/16/data/pg_hba.conf
 
     - name: Start PostgreSQL service
